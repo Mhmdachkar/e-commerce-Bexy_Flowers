@@ -212,7 +212,7 @@ const UltraHero = () => {
 
       {/* Advanced Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+        className="absolute bottom-8 left-[47%] transform -translate-x-1/2 z-30"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 2 }}

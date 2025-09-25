@@ -94,7 +94,7 @@ export const CollectionHero = () => {
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/15 rounded-full blur-3xl animate-float"></div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+      <div className="relative z-20 text-center max-w-4xl mx-auto px-4">
         <motion.div
           className="hero-title mb-8"
           initial={{ opacity: 0 }}
@@ -111,7 +111,7 @@ export const CollectionHero = () => {
         </motion.div>
 
         <motion.p 
-          className="hero-subtitle text-xl lg:text-2xl text-muted-foreground mb-6 font-body"
+          className="hero-subtitle text-xl lg:text-2xl text-foreground/80 mb-6 font-body"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 3 }}
@@ -120,12 +120,12 @@ export const CollectionHero = () => {
         </motion.p>
 
         <motion.div
-          className="hero-description text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+          className="hero-description text-foreground/70 max-w-2xl mx-auto leading-relaxed font-body"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 3.5 }}
         >
-          <p>
+          <p className="text-lg">
             Discover our curated collection of artisanal bouquets, each carefully designed 
             to celebrate life's most beautiful moments with elegance and sophistication.
           </p>
