@@ -94,6 +94,11 @@ const Collection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Ensure page loads at the very top on navigation
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+
+  useEffect(() => {
     if (selectedCategory === "all") {
       setFilteredBouquets(bouquets);
     } else {
@@ -102,6 +107,11 @@ const Collection = () => {
   }, [selectedCategory]);
 
   useEffect(() => {
+    // Ensure at top on page mount
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
     // Curtain reveal animation on page load
     const tl = gsap.timeline();
     

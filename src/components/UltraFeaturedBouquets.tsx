@@ -180,6 +180,7 @@ const UltraFeaturedBouquets = () => {
     <section 
       ref={sectionRef}
       className="py-32 px-4 bg-gradient-platinum relative overflow-hidden"
+      data-section="signature-collection"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -213,14 +214,14 @@ const UltraFeaturedBouquets = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
           {bouquets.map((bouquet, index) => (
             <motion.div
               key={bouquet.id}
               ref={(el) => {
                 if (el) cardsRef.current[index] = el;
               }}
-              className="group perspective-1000 cursor-pointer"
+              className="group perspective-1000 cursor-pointer w-full max-w-[384px]"
               initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ 
@@ -230,7 +231,7 @@ const UltraFeaturedBouquets = () => {
               }}
               viewport={{ once: true }}
             >
-              <div className="relative bg-card shadow-sharp hover:shadow-3d transition-3d transform-3d overflow-hidden">
+              <div className="relative bg-card shadow-sharp hover:shadow-3d transition-3d transform-3d overflow-hidden rounded-xl">
                 {/* Gold Border Animation */}
                 <svg
                   className="absolute inset-0 w-full h-full pointer-events-none z-20"
@@ -260,32 +261,32 @@ const UltraFeaturedBouquets = () => {
                   <div className="card-overlay absolute inset-0 bg-foreground/20 opacity-0 transition-3d" />
                   
                   {/* Floating Actions */}
-                  <div className="card-actions absolute top-6 right-6 flex flex-col gap-3 opacity-0 translate-y-5 transition-3d">
-                    <Button size="icon" className="bg-primary/90 hover:bg-primary text-primary-foreground shadow-gold backdrop-blur-sm">
-                      <Heart className="w-5 h-5" />
+                  <div className="card-actions absolute top-4 right-4 flex flex-col gap-2.5 opacity-0 translate-y-5 transition-3d">
+                    <Button size="icon" className="h-9 w-9 bg-primary/90 hover:bg-primary text-primary-foreground shadow-gold backdrop-blur-sm">
+                      <Heart className="w-4.5 h-4.5" />
                     </Button>
-                    <Button size="icon" className="bg-primary/90 hover:bg-primary text-primary-foreground shadow-gold backdrop-blur-sm">
-                      <Eye className="w-5 h-5" />
+                    <Button size="icon" className="h-9 w-9 bg-primary/90 hover:bg-primary text-primary-foreground shadow-gold backdrop-blur-sm">
+                      <Eye className="w-4.5 h-4.5" />
                     </Button>
                   </div>
 
                   {/* Price Tag */}
-                  <div className="absolute top-6 left-6 bg-primary text-primary-foreground px-4 py-2 font-luxury font-bold text-lg shadow-gold">
+                  <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-4 py-2 font-luxury font-bold text-lg shadow-gold rounded">
                     {bouquet.price}
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-8 bg-card relative z-10">
+                <div className="p-6 bg-card relative z-10">
                   <h3 className="font-luxury text-2xl font-bold text-card-foreground mb-3">
                     {bouquet.name}
                   </h3>
-                  <p className="font-body text-muted-foreground mb-6 leading-relaxed">
+                  <p className="font-body text-base text-muted-foreground mb-5 leading-relaxed">
                     {bouquet.description}
                   </p>
                   
                   <Button
-                    className="w-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground transition-3d font-semibold py-6 shadow-sharp hover:shadow-gold group"
+                    className="w-full bg-foreground text-background hover:bg-primary hover:text-primary-foreground transition-3d font-semibold py-4 shadow-sharp hover:shadow-gold group text-base"
                   >
                     <ShoppingCart className="w-5 h-5 mr-3 group-hover:animate-pulse-gold" />
                     ADD TO COLLECTION
@@ -306,7 +307,15 @@ const UltraFeaturedBouquets = () => {
           <Button
             size="lg"
             className="font-body text-lg px-12 py-6 bg-primary text-primary-foreground font-semibold shadow-luxury hover:shadow-3d hover:glow-intense transition-3d group"
-            onClick={() => navigate('/collection')}
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+              navigate('/collection');
+              requestAnimationFrame(() => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+              });
+            }}
           >
             VIEW COMPLETE COLLECTION
             <motion.div

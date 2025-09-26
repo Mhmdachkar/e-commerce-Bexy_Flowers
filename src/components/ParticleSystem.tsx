@@ -1,11 +1,12 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-function Particles({ count = 150 }) {
+function Particles({ count = 120 }) {
   const mesh = useRef<THREE.Points>(null);
   const { size } = useThree();
+  const isPausedRef = useRef(false);
   
   const [positions, colors] = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -25,7 +26,16 @@ function Particles({ count = 150 }) {
     return [positions, colors];
   }, [count]);
 
+  useEffect(() => {
+    const onVisibility = () => {
+      isPausedRef.current = document.hidden;
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
+
   useFrame((state) => {
+    if (isPausedRef.current) return;
     if (mesh.current) {
       mesh.current.rotation.x = state.clock.elapsedTime * 0.1;
       mesh.current.rotation.y = state.clock.elapsedTime * 0.15;
@@ -62,6 +72,7 @@ export default function ParticleSystem({ className = "" }: ParticleSystemProps) 
       <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
         style={{ background: 'transparent' }}
+        dpr={[1, 1.5]}
       >
         <Particles />
       </Canvas>

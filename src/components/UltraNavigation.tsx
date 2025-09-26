@@ -158,8 +158,16 @@ const UltraNavigation = () => {
   };
 
   const handleNavigation = (path: string) => {
+    // Force scroll reset around navigation to ensure new page starts at top
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     navigate(path);
     setIsMenuOpen(false);
+    // Run again on next frame to beat layout/animation timing
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
   };
 
   const handleThreeJSError = (error: Error) => {

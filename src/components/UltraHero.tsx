@@ -115,7 +115,8 @@ const UltraHero = () => {
           alt="Luxury floral background"
           className="w-full h-full object-cover opacity-20 transform-3d"
           initial={{ scale: 1.2, rotateX: -5 }}
-          animate={{ scale: 1, rotateX: 0 }}
+          whileInView={{ scale: 1, rotateX: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/70 to-background/90" />
@@ -126,32 +127,7 @@ const UltraHero = () => {
         <ParticleSystem />
       </div>
 
-      {/* Floating Gold Elements */}
-      {[...Array(8)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="floating-element absolute w-4 h-4 bg-primary/30 opacity-40"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            clipPath: i % 2 === 0 
-              ? "polygon(50% 0%, 0% 100%, 100% 100%)" 
-              : "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"
-          }}
-          animate={{
-            y: [0, -50, 0],
-            x: [0, Math.random() * 30 - 15, 0],
-            opacity: [0.3, 0.7, 0.3],
-            rotate: [0, 180, 360]
-          }}
-          transition={{
-            duration: 8 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 4,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
+      
 
       {/* Content */}
       <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
@@ -203,6 +179,12 @@ const UltraHero = () => {
           <Button
             size="lg"
             className="font-body text-lg px-16 py-8 bg-primary text-primary-foreground font-semibold shadow-3d hover:shadow-luxury hover:glow-intense transition-3d border-2 border-primary-dark transform-3d relative overflow-hidden group"
+            onClick={() => {
+              const el = document.querySelector('[data-section="signature-collection"]');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
           >
             <span className="relative z-10">SHOP LUXURY COLLECTION</span>
             <div className="absolute inset-0 bg-gradient-royal opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -214,7 +196,8 @@ const UltraHero = () => {
       <motion.div
         className="absolute bottom-8 left-[47%] transform -translate-x-1/2 z-30"
         initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1, delay: 2 }}
       >
         <motion.div
